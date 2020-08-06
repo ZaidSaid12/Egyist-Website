@@ -1,0 +1,31 @@
+<%- include("header"); %>
+
+<div class="home-page container-fluid">
+  <div class="row">
+
+
+    <div class=" col-lg-6">
+      <div class="home-buttons">
+        <h1 class="header-h1" >Join Our Server for different activities and make new friends and debate with them!</h1>
+        <form class="form-home" action="../discord_home" method="post">
+          <button type="submit" class="btn btn-lg  buttons" name="discord"><i class="fab fa-discord"></i>Sign Up for Discord</button>
+
+        </form>
+        <form class="form-home" action="../our_server" method="post">
+          <button type="submit" class="btn btn-lg  buttons" name="our_server"><i class="fab fa-discord"></i>Join Our Server</button>
+        </form>
+
+
+      </div>
+
+    </div>
+    <div class="col-lg-6">
+      <img src="images/cover.png" class="home-image" alt="discord_img">
+    </div>
+
+
+  </div>
+
+</div>
+
+<%- include("footer"); %>
