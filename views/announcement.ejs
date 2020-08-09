@@ -1,0 +1,13 @@
+<%- include("header"); %>
+
+
+<h1>Announcements</h1>
+<div class="announcements">
+  <% announcements.forEach((announcement) =>{ %>
+    <p><%= announcement.body%></p>
+    <hr class="horizontal-line">
+  <% }); %>
+</div>
+
+
+<%- include("footer"); %>

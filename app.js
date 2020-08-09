@@ -32,11 +32,20 @@ const problemSchema = new mongoose.Schema({
   problem: String
 });
 
+const announcementSchema = new mongoose.Schema({
+  title: String,
+  body: String,
+  time: String
+});
+
+
 const Tournament = mongoose.model("Tournament", tournamentSchema);
 
 const Staff = mongoose.model("Staff", staffSchema);
 
 const Problem = mongoose.model("Problem", problemSchema);
+
+const Announcement = mongoose.model("Announcement", announcementSchema);
 
 app.get("/",(req, res)=>{
   res.render("index");
@@ -72,6 +81,19 @@ app.get("/signUpForTournament",(req,res)=>{
 
 app.get("/support",(req,res)=>{
   res.render("support");
+});
+
+app.get("/announcement",(req,res)=>{
+  var announcementArray = [];
+  Announcement.find((err, announcements)=>{
+    if (err) {
+      console.log(err);
+    }else{
+      announcementArray=announcements;
+      res.render("announcement",{announcements:announcementArray});
+}
+}).sort({"time":-1}).limit(10);
+
 });
 
 

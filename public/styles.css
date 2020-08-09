@@ -195,3 +195,10 @@ background: linear-gradient(90deg, rgba(218,113,66,1) 16%, rgba(195,55,28,1) 41%
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
 }
+.announcements{
+  padding: 3%;
+  text-align: left;
+}
+.horizontal-line{
+  border: 1px solid white;
+}
