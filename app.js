@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const app = express();
 const port = 3000;
 const mongoose = require('mongoose');
+const sanitize = require('mongo-sanitize');
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended:true}));
@@ -71,6 +72,11 @@ app.get("/youtube",(req,res)=>{
   res.redirect("/");
 });
 
+app.get("/github",(req,res)=>{
+  res.redirect("https://github.com/egyist");
+});
+
+
 app.get("/twitter",(req,res)=>{
   res.redirect("https://twitter.com/society_egypt");
 });
@@ -83,7 +89,7 @@ app.get("/support",(req,res)=>{
   res.render("support");
 });
 
-app.get("/announcement",(req,res)=>{
+app.get("/news",(req,res)=>{
   var announcementArray = [];
   Announcement.find((err, announcements)=>{
     if (err) {
@@ -92,7 +98,7 @@ app.get("/announcement",(req,res)=>{
       announcementArray=announcements;
       res.render("announcement",{announcements:announcementArray});
 }
-}).sort({"time":-1}).limit(10);
+}).sort({"time":-1}).limit(5);
 
 });
 
@@ -107,9 +113,9 @@ app.post("/our_server",(req, res)=>{
 
 app.post("/signUpForTournament",(req, res)=>{
   var newApplicant = new Tournament({
-    typeOfTournament: req.body.typeOfTournament,
-    discordName: req.body.discordName,
-    email: req.body.email
+    typeOfTournament: sanitize(req.body.typeOfTournament),
+    discordName: sanitize(req.body.discordName),
+    email: sanitize(req.body.email)
   });
   newApplicant.save();
   res.render("successful",{formType:"signUp"})
@@ -117,25 +123,25 @@ app.post("/signUpForTournament",(req, res)=>{
 
 
 app.post("/applyForStaff",(req, res)=>{
-  console.log(req.body);
+
   var newStaff = new Staff({
-    fullName: req.body.fullName,
-    mobileNumber: req.body.mobileNumber,
-    discordName: req.body.discordName,
-    email: req.body.email,
-    previousExperience: req.body.experience
+    fullName: sanitize(req.body.fullName),
+    mobileNumber: sanitize(req.body.mobileNumber),
+    discordName: sanitize(req.body.discordName),
+    email: sanitize(req.body.email),
+    previousExperience: sanitize(req.body.experience)
   });
   newStaff.save();
   res.render("successful",{formType:"applyForStaff"})
 });
 
 app.post("/support",(req, res)=>{
-  console.log(req.body);
+
   var newProblem = new Problem({
-    fullName: req.body.fullName,
-    mobileNumber: req.body.mobileNumber,
-    discordName: req.body.discordName,
-    problem: req.body.problem
+    fullName: sanitize(req.body.fullName),
+    mobileNumber: sanitize(req.body.mobileNumbe),
+    discordName: sanitize(req.body.discordName),
+    problem: sanitize(req.body.problem)
   });
   newProblem.save();
   res.render("successful",{formType:"Support"})

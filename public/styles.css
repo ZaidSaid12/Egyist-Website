@@ -96,7 +96,7 @@ background: linear-gradient(90deg, rgba(218,113,66,1) 16%, rgba(195,55,28,1) 41%
 .instagram:hover{
   color: #405DE6;
 }
-.facebook, .twitter, .youtube, .instagram{
+.facebook, .twitter, .youtube, .instagram, .github{
   color: white;
 }
 .footer-fav{
@@ -196,9 +196,30 @@ background: linear-gradient(90deg, rgba(218,113,66,1) 16%, rgba(195,55,28,1) 41%
   -webkit-transform: rotate(45deg);
 }
 .announcements{
-  padding: 3%;
+  padding: 3% 10% 3%;
   text-align: left;
 }
+
+.announcement-body{
+  font-size: 125%;
+}
+
+.announcement-time{
+  font-size: 80%;
+  color: #ffd571;
+}
+
 .horizontal-line{
   border: 1px solid white;
+}
+.blockquote {
+font-style:italic;
+line-height:32px;
+font-size:20px;
+color:#fff;
+/* background: #3F51B5; */
+border: solid white;
+margin:10px;
+padding: 15px 20px 15px 20px;
+border-radius: 5px;
 }

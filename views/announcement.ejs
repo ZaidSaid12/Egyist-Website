@@ -1,11 +1,15 @@
 <%- include("header"); %>
 
 
-<h1>Announcements</h1>
-<div class="announcements">
+<h1>News</h1>
+<div class="announcements ">
   <% announcements.forEach((announcement) =>{ %>
-    <p><%= announcement.body%></p>
-    <hr class="horizontal-line">
+    <div class="blockquote">
+      <p class="announcement-time"><%= announcement.time%></p>
+      <p class="announcement-body"><%= announcement.body%></p>
+      <!-- <hr class="horizontal-line"> -->
+    </div>
+
   <% }); %>
 </div>
 
