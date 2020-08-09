@@ -1,0 +1,34 @@
+<%- include("header"); %>
+<h1>Support</h1>
+<div class="">
+<form action="../support" method="post">
+  <div class="row SignUp-Form">
+
+    <div class="col-sm-6">
+      <label class="form-label">Full Name</label>
+      <br>
+      <label class="form-label">Mobile number</label>
+      <br>
+      <label class="form-label">Discord Username</label>
+      <br>
+      <label class="form-label">Feel free</label>
+    </div>
+
+    <div class="col-sm-6">
+      <input type="text" class="form-control" required  name="fullName" value="">
+      <br>
+      <input type="tel" class="form-control"  required  name="mobileNumber" value="">
+      <br>
+      <input type="text" class="form-control" required  name="discordName`" value="">
+      <br>
+
+      <textarea name="problem" class="form-control" rows="8" cols="80"></textarea>
+      <br>
+    </div>
+
+  </div>
+  <button class="buttons btn" type="submit" name="button">Submit</button>
+</form>
+</div>
+
+<%- include("footer"); %>

@@ -2,12 +2,13 @@
 
 
 
-<h1 class="sign-up"><i class="arrow right"></i> Sign Up for Our Tournament</h1>
-<div class="sign-up-for-tournament">
-<form>
+<h1 class="form-options sign-up"><i class="sign-up-arrow arrow "></i> Sign Up for Our Tournament</h1>
+<div class="sign-up-for-tournament form-body">
+
+<form action="../signUpForTournament" method="post" id = "tournament">
   <div class="row SignUp-Form">
 
-    <div class="col-lg-6">
+    <div class="col-sm-6">
       <label class="form-label">Tournament</label>
       <br>
       <label class="form-label">Discord Username</label>
@@ -15,16 +16,16 @@
       <label class="form-label">Email Address</label>
     </div>
 
-    <div class="col-lg-6">
-      <select class="form-control" >
-        <option value="volvo">Debate</option>
-        <option value="saab">League of Legends</option>
+    <div class="col-sm-6">
+      <select name="typeOfTournament" class="form-control" form="tournament" >
+        <option  value="Debate">Debate</option>
+        <option value="League of Legends">League of Legends</option>
 
       </select>
       <br>
-      <input type="text" class="form-control" name="" value="">
+      <input type="text" class="form-control" required name="discordName" value="">
       <br>
-      <input type="email" class="form-control" name="" value="">
+      <input type="email" class="form-control" required name="email" value="">
       <br>
     </div>
 
@@ -32,4 +33,41 @@
   <button class="buttons btn" type="submit" name="button">Submit</button>
 </form>
 </div>
+
+
+<h1 class="form-options apply-for-staff"><i class="apply-for-staff-arrow arrow "></i> Apply For Staff</h1>
+<div class="apply-for-stuff-form form-body">
+<form action="../applyForStaff" method="post">
+  <div class="row SignUp-Form">
+
+    <div class="col-sm-6">
+      <label class="form-label">Full Name</label>
+      <br>
+      <label class="form-label">Mobile number</label>
+      <br>
+      <label class="form-label">Discord Username</label>
+      <br>
+      <label class="form-label">Email Address</label>
+      <br>
+      <label class="form-label">Previous Experience</label>
+    </div>
+
+    <div class="col-sm-6">
+      <input type="text" class="form-control" required  name="fullName" value="">
+      <br>
+      <input type="tel" class="form-control"  required  name="mobileNumber" value="">
+      <br>
+      <input type="text" class="form-control" required  name="discordName" value="">
+      <br>
+      <input type="email" class="form-control"  required  name="email" value="">
+      <br>
+      <textarea name="experience" class="form-control" rows="8" cols="80"></textarea>
+      <br>
+    </div>
+
+  </div>
+  <button class="buttons btn" type="submit" name="button">Submit</button>
+</form>
+</div>
+
 <%- include("footer"); %>
