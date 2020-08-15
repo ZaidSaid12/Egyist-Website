@@ -181,9 +181,7 @@ app.get("/supportForms", (req, res) => {
 
 
 app.post("/formForUsPassword", (req, res) => {
-  console.log(req.body.password);
   let password = crypto.createHash('sha256').update(req.body.password).digest('hex');
-  console.log(password);
   res.cookie("Password", req.body.password, {
     maxAge: 360000
   });
