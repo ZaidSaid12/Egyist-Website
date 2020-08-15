@@ -1,0 +1,15 @@
+<%- include("formsHeader"); %>
+
+<h1>Support Forms</h1>
+<div class="announcements ">
+<% problemApplicants.forEach(applicant =>{ %>
+  <div class="blockquote">
+  <p> Full Name:  <%= applicant.fullName %> </p>
+  <p> Mobile Number:  <%= applicant.mobileNumber %> </p>
+  <p> Discord Name:  <%= applicant.discordName %> </p>
+  <p> Problem:  <%= applicant.problem %> </p>
+</div>
+<% }); %>
+</div>
+
+<%- include("footer"); %>
