@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const sanitize = require('mongo-sanitize');
 const cookieParser = require('cookie-parser');
 const crypto = require('crypto');
+const nodemailer = require('nodemailer');
 const hashedPassword = "c57a46cb86c17954210084c685a094e6eb6c818a2b983e8ec53f3c90daa023ca";
 
 
@@ -41,6 +42,7 @@ const problemSchema = new mongoose.Schema({
   fullName: String,
   mobileNumber: String,
   discordName: String,
+  email: String,
   problem: String
 });
 
@@ -50,6 +52,10 @@ const announcementSchema = new mongoose.Schema({
   time: String
 });
 
+const credentialSchema = new mongoose.Schema({
+  email: String,
+  password: String
+});
 
 const Tournament = mongoose.model("Tournament", tournamentSchema);
 
@@ -59,8 +65,39 @@ const Problem = mongoose.model("Problem", problemSchema);
 
 const Announcement = mongoose.model("Announcement", announcementSchema);
 
-app.get("/", (req, res) => {
+const Credential = mongoose.model("Credential", credentialSchema);
 
+function sendEmail(targetMail, message, subject) {
+  Credential.findOne({}, (err, mail) => {
+    if (err) {
+      console.log(err);
+    } else {
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: mail.email,
+          pass: mail.password
+        }
+      });
+
+      var mailOptions = {
+        from: "EIS" + "<" + mail.email + ">",
+        to: targetMail,
+        subject: subject,
+        html: message
+      };
+
+      transporter.sendMail(mailOptions, function(error, info) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });
+    }
+  });
+}
+app.get("/", (req, res) => {
 
   res.render("index");
 });
@@ -108,74 +145,76 @@ app.get("/formForUs", (req, res) => {
   res.render("formForUs");
 });
 
+app.get("/blog",(req, res)=>{
+  res.redirect("http://localhost:4000/");
+});
+
+
 app.get("/TournamentForms", (req, res, err) => {
-  if(typeof(req.cookies.Password) === "undefined" || req.cookies.Password === ""){
+  if (typeof(req.cookies.Password) === "undefined" || req.cookies.Password === "") {
 
     res.redirect("/");
-  }
-  else{
-  let password = crypto.createHash('sha256').update(req.cookies.Password).digest('hex');
-
-  if (password === hashedPassword) {
-    Tournament.find({}, (err, applicants) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.render("TournamentForms", {
-          tournamentApplicants: applicants
-        });
-      }
-    });
   } else {
-    res.redirect("/");
+    let password = crypto.createHash('sha256').update(req.cookies.Password).digest('hex');
+
+    if (password === hashedPassword) {
+      Tournament.find({}, (err, applicants) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.render("TournamentForms", {
+            tournamentApplicants: applicants
+          });
+        }
+      });
+    } else {
+      res.redirect("/");
+    }
   }
-}
 });
 
 app.get("/StaffForms", (req, res) => {
-  if(typeof(req.cookies.Password) === "undefined" || req.cookies.Password === ""){
+  if (typeof(req.cookies.Password) === "undefined" || req.cookies.Password === "") {
 
     res.redirect("/");
-  }
-  else{
-  let password = crypto.createHash('sha256').update(req.cookies.Password).digest('hex');
-  if (password === hashedPassword) {
-    Staff.find({}, (err, applicants) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.render("StaffForms", {
-          staffApplicants: applicants
-        })
-      }
-    });
   } else {
-    res.redirect("/");
+    let password = crypto.createHash('sha256').update(req.cookies.Password).digest('hex');
+    if (password === hashedPassword) {
+      Staff.find({}, (err, applicants) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.render("StaffForms", {
+            staffApplicants: applicants
+          })
+        }
+      });
+    } else {
+      res.redirect("/");
+    }
   }
-}
 });
 
 app.get("/supportForms", (req, res) => {
-  if(typeof(req.cookies.Password) === "undefined" || req.cookies.Password === ""){
+  if (typeof(req.cookies.Password) === "undefined" || req.cookies.Password === "") {
 
     res.redirect("/");
-  }
-  else{
-  let password = crypto.createHash('sha256').update(req.cookies.Password).digest('hex');
-  if (password === hashedPassword) {
-    Problem.find({}, (err, applicants) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.render("supportForms", {
-          problemApplicants: applicants
-        })
-      }
-    });
   } else {
-    res.redirect("/");
+    let password = crypto.createHash('sha256').update(req.cookies.Password).digest('hex');
+    if (password === hashedPassword) {
+      Problem.find({}, (err, applicants) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.render("supportForms", {
+            problemApplicants: applicants
+          })
+        }
+      });
+    } else {
+      res.redirect("/");
+    }
   }
-}
 });
 
 
@@ -230,6 +269,10 @@ app.post("/signUpForTournament", (req, res) => {
     email: sanitize(req.body.email)
   });
   newApplicant.save();
+
+  const message = "<h4>Dear " + sanitize(req.body.discordName) + ",</h4> <p>Thanks for Joining EIS. <br> You have successfully signed up for our <b>"+sanitize(req.body.typeOfTournament)+"</b> Tournament.<br>We will contact you later for further information.</p><br><p>Sincerely.<br>EIS - Egypt Intellectual Society</p>"
+
+  sendEmail(sanitize(req.body.email), message, "Signing Up for Our Tournament" );
   res.render("successful", {
     formType: "signUp"
   })
@@ -246,6 +289,9 @@ app.post("/applyForStaff", (req, res) => {
     previousExperience: sanitize(req.body.experience)
   });
   newStaff.save();
+  const message = "<h4>Dear " + sanitize(req.body.fullName) + ",</h4> <p>Thanks for Joining EIS. <br> Your application to join our staff was submitted successfully and will be reviewed.<br>We will contact you later for further information.</p><br><p>Sincerely.<br>EIS - Egypt Intellectual Society</p>"
+
+  sendEmail(sanitize(req.body.email), message, "Applying For Staff" );
   res.render("successful", {
     formType: "applyForStaff"
   })
@@ -257,9 +303,14 @@ app.post("/support", (req, res) => {
     fullName: sanitize(req.body.fullName),
     mobileNumber: sanitize(req.body.mobileNumber),
     discordName: sanitize(req.body.discordName),
+    email: sanitize(req.body.email),
     problem: sanitize(req.body.problem)
   });
   newProblem.save();
+
+  const message = "<h4>Dear " + sanitize(req.body.fullName) + ",</h4> <p>Thanks for Joining EIS. <br> We have recieved your concern and we will work on solving it.<br>We will contact you later for further information.</p><br><p>Sincerely.<br>EIS - Egypt Intellectual Society</p>"
+
+  sendEmail(sanitize(req.body.email), message, "Support Ticket Status" );
   res.render("successful", {
     formType: "Support"
   })

@@ -1,9 +1,9 @@
 <%- include("formsHeader"); %>
 
 <h1>Support Forms</h1>
-<div class="announcements ">
+<div class="announcements row ">
 <% problemApplicants.forEach(applicant =>{ %>
-  <div class="blockquote">
+  <div class="blockquote col-lg-4">
   <p> Full Name:  <%= applicant.fullName %> </p>
   <p> Mobile Number:  <%= applicant.mobileNumber %> </p>
   <p> Discord Name:  <%= applicant.discordName %> </p>

@@ -1,12 +1,15 @@
 <%- include("formsHeader"); %>
 <h1>Tournamnet Forms</h1>
-<div class="announcements ">
+<div class="announcements row ">
 <% tournamentApplicants.forEach(applicant =>{ %>
-  <div class="blockquote">
-  <p> Name:  <%= applicant.discordName %> </p>
-  <p> Email:  <%= applicant.email %> </p>
-  <p> Type Of Tournament:  <%= applicant.typeOfTournament %> </p>
-</div>
+
+    <div class="blockquote col-lg-4">
+    <p> Name:  <%= applicant.discordName %> </p>
+    <p> Email:  <%= applicant.email %> </p>
+    <p> Type Of Tournament:  <%= applicant.typeOfTournament %> </p>
+  </div>
+
+
 <% }); %>
 </div>
 <%- include("footer"); %>
