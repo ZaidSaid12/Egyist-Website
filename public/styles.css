@@ -27,13 +27,18 @@ background: linear-gradient(90deg, rgba(218,113,66,1) 16%, rgba(195,55,28,1) 41%
   margin-right: 2rem;
 }
 .nav-brand-header{
+  width: 5rem;
+  
   font-size: 2rem;
   margin-right: 13rem;
+  border:  solid white;
+  border-radius: 100%;
+
 }
 
 /* footer */
 .footer{
-  margin-top: 5%;
+  margin-top: 7%;
   background: rgb(218,113,66);
   background: linear-gradient(90deg, rgba(218,113,66,1) 16%, rgba(195,55,28,1) 41%, rgba(2,10,22,1) 71%);
   text-align: center;
