@@ -110,11 +110,11 @@ app.get("/why-eis", (req, res) => {
 });
 
 app.get("/facebook", (req, res) => {
-  res.redirect("https://www.facebook.com/Egypt.Intellectual.Society");
+  res.redirect("https://www.facebook.com/egyist/");
 });
 
 app.get("/instagram", (req, res) => {
-  res.redirect("https://www.instagram.com/egyptintellectualsociety");
+  res.redirect("https://www.instagram.com/egyist_official");
 });
 
 app.get("/youtube", (req, res) => {
@@ -127,7 +127,7 @@ app.get("/github", (req, res) => {
 
 
 app.get("/twitter", (req, res) => {
-  res.redirect("https://twitter.com/society_egypt");
+  res.redirect("https://twitter.com/egyist_official");
 });
 
 app.get("/signUpForTournament", (req, res) => {
