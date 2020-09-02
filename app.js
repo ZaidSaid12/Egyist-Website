@@ -7,7 +7,7 @@ const sanitize = require('mongo-sanitize');
 const cookieParser = require('cookie-parser');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
-const hashedPassword = "c57a46cb86c17954210084c685a094e6eb6c818a2b983e8ec53f3c90daa023ca";
+const hashedPassword = "d3e27282d21a4f4b583dca1c900ff4a51ac242fdd45e8aa7607ef66ec1dd2f71";
 
 
 
@@ -90,8 +90,6 @@ function sendEmail(targetMail, message, subject) {
       transporter.sendMail(mailOptions, function(error, info) {
         if (error) {
           console.log(error);
-        } else {
-          console.log('Email sent: ' + info.response);
         }
       });
     }
@@ -221,9 +219,7 @@ app.get("/supportForms", (req, res) => {
 
 app.post("/formForUsPassword", (req, res) => {
   let password = crypto.createHash('sha256').update(req.body.password).digest('hex');
-  res.cookie("Password", req.body.password, {
-    maxAge: 360000
-  });
+  res.cookie("Password", req.body.password, {maxAge: 360000, httpOnly: true});
 
   if (password === hashedPassword) {
 
@@ -234,6 +230,9 @@ app.post("/formForUsPassword", (req, res) => {
 
 });
 
+app.get("/formForUsPassword", (req, res) => {
+  res.render("formForUs");
+});
 
 
 app.get("/news", (req, res) => {
@@ -316,6 +315,9 @@ app.post("/support", (req, res) => {
   })
 });
 
+app.get('*', function(req, res){
+  res.status(404).render("404error");
+});
 
 app.listen(port, () => {
   console.log("server started on port " + port);
