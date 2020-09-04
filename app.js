@@ -19,7 +19,7 @@ app.use(express.static("public"));
 app.use(cookieParser())
 
 // initialize Database
-mongoose.connect('mongodb://localhost:27017/EIS', {
+mongoose.connect('mongodb://localhost:27017/Egyist', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
@@ -81,7 +81,7 @@ function sendEmail(targetMail, message, subject) {
       });
 
       var mailOptions = {
-        from: "EIS" + "<" + mail.email + ">",
+        from: "Egyist" + "<" + mail.email + ">",
         to: targetMail,
         subject: subject,
         html: message
@@ -269,7 +269,7 @@ app.post("/signUpForTournament", (req, res) => {
   });
   newApplicant.save();
 
-  const message = "<h4>Dear " + sanitize(req.body.discordName) + ",</h4> <p>Thanks for Joining Egyist. <br> You have successfully signed up for our <b>"+sanitize(req.body.typeOfTournament)+"</b> Tournament.<br>We will contact you later for further information.</p><br><p>Sincerely.<br>EIS - Egypt Intellectual Society</p>"
+  const message = "<h4>Dear " + sanitize(req.body.discordName) + ",</h4> <p>Thanks for Joining Egyist. <br> You have successfully signed up for our <b>"+sanitize(req.body.typeOfTournament)+"</b> Tournament.<br>We will contact you later for further information.</p><br><p>Sincerely.<br>Egyist - Egypt Intellectual Society</p>"
 
   sendEmail(sanitize(req.body.email), message, "Signing Up for Our Tournament" );
   res.render("successful", {
@@ -288,7 +288,7 @@ app.post("/applyForStaff", (req, res) => {
     previousExperience: sanitize(req.body.experience)
   });
   newStaff.save();
-  const message = "<h4>Dear " + sanitize(req.body.fullName) + ",</h4> <p>Thanks for Joining Egyist. <br> Your application to join our staff was submitted successfully and will be reviewed.<br>We will contact you later for further information.</p><br><p>Sincerely.<br>EIS - Egypt Intellectual Society</p>"
+  const message = "<h4>Dear " + sanitize(req.body.fullName) + ",</h4> <p>Thanks for Joining Egyist. <br> Your application to join our staff was submitted successfully and will be reviewed.<br>We will contact you later for further information.</p><br><p>Sincerely.<br>Egyist - Egypt Intellectual Society</p>"
 
   sendEmail(sanitize(req.body.email), message, "Applying For Staff" );
   res.render("successful", {
@@ -307,7 +307,7 @@ app.post("/support", (req, res) => {
   });
   newProblem.save();
 
-  const message = "<h4>Dear " + sanitize(req.body.fullName) + ",</h4> <p>Thanks for Joining Egyist. <br> We have recieved your concern and we will work on solving it.<br>We will contact you later for further information.</p><br><p>Sincerely.<br>EIS - Egypt Intellectual Society</p>"
+  const message = "<h4>Dear " + sanitize(req.body.fullName) + ",</h4> <p>Thanks for Joining Egyist. <br> We have recieved your concern and we will work on solving it.<br>We will contact you later for further information.</p><br><p>Sincerely.<br>Egyist - Egypt Intellectual Society</p>"
 
   sendEmail(sanitize(req.body.email), message, "Support Ticket Status" );
   res.render("successful", {
