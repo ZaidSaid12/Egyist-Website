@@ -144,7 +144,7 @@ app.get("/formForUs", (req, res) => {
 });
 
 app.get("/blog",(req, res)=>{
-  res.redirect("http://localhost:4000/");
+  res.redirect("http://egyist.com:6060/");
 });
 
 
