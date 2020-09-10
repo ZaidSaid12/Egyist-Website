@@ -19,7 +19,7 @@ app.use(express.static("public"));
 app.use(cookieParser())
 
 // initialize Database
-mongoose.connect('mongodb://localhost:27017/Egyist', {
+mongoose.connect('mongodb://localhost:27017/EIS', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
@@ -118,7 +118,7 @@ app.get("/instagram", (req, res) => {
 });
 
 app.get("/youtube", (req, res) => {
-  res.redirect("/");
+  res.redirect("https://www.youtube.com/channel/UCE7SPirpUbuaNW4hvHhglcg/featured");
 });
 
 app.get("/github", (req, res) => {
