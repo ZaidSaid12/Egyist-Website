@@ -258,7 +258,7 @@ app.post("/discord_home", (req, res) => {
 });
 
 app.post("/our_server", (req, res) => {
-  res.redirect("https://discord.gg/vUpc3T4");
+  res.redirect("https://discord.gg/dbWB3xS");
 });
 
 app.post("/signUpForTournament", (req, res) => {
