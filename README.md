@@ -1,4 +1,4 @@
-# EIS-Website
+# Egyist-Website
 This is a website for my debating discord server
 Using Html5, CSS3, JS6, Bootstrap, Jquery for front end
 Using NodeJS for backend with express framework
